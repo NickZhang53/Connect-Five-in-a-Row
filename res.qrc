@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Image/homepage.png</file>
+        <file>Image/gamepage.png</file>
+        <file>Image/circle.png</file>
+        <file>Image/cross.png</file>
+        <file>Image/LOL.png</file>
+        <file>Image/winMeme.png</file>
+        <file>Image/appicon.png</file>
+        <file>Image/lastPlacedCircle.png</file>
+        <file>Image/lastPlacedCross.png</file>
+    </qresource>
+</RCC>
