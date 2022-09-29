@@ -1,49 +1,35 @@
-# 五子棋AI
+# Connect-Five-In-A-Row Game AI
 
-## 对象
+## Basic Components
 
-- 电脑 MAX
+- Computer - `MAX`
 
-- 玩家 MIN
+- Gamer - `MIN`
 
-- 棋盘局面
+- State of the chess board $S$
 
-  
+- The evaluation $e$ of a state $S$
 
-## 基本框架
-
-- 状态`State`：包括**棋盘局面**和该轮**出招的游戏者**
-
-- 评价函数
-
-  - $e(s)>0$ 表示对MAX有利，$e(s)<0$ 表示对MIN有利。$|e(s)|$ 越大越有利。
-  - 故可定义 $e(s)$ 为 $\text{Score MAX} - \text{Score MIN}$。
+  - $e(S)>0$ indicates that `MAX` (i.e. computer) is having the advantage, and $e(S)<0$ indicates that `MIN` (i.e. the gamer) is having the advantage. A larger magnitude represents a larger advantage.
+  - We can define $e(S)=\text{Score MAX} - \text{Score MIN}$.
   - <img src="https://kimlongli.github.io/uploads/score.jpg" alt="img" style="zoom:35%;" />
-  - 分为**单点**评分和**全局**评分
-
-- 后继函数：生成下一步
-
-  - 只需考虑已有棋子相邻（横纵对角）的点
-  - 利用**单点**评分进行粗略**排序**，大幅度提升alpha-beta剪枝效率
-
-- 终止测试：判断游戏是否结束
-
+  - The score of a point (local score) vs the score of the whole board (global score).
   
+- Successor move
 
-## 需要实现的函数
+  - Suffices to consider neighbouring locations of the existing chesses on the board.
+  - Sort each candidate move using their local scores. This improves the efficiency of alpha-beta pruning.
+  
+- Termination of the game
 
-- `void terminate(State s, int lastMove)`
 
-- `int evaluate_global(State s)`, `int evaluate_point(State s)`
+## Search Algorithms
 
-- `vector<State> make_successors(State s, int player)`
+- Minimax + Alpha-beta Pruning
 
-- Minimax算法 + alpha-beta剪枝
-
-  - 搜索的最大深度`lim` (迭代加深)
-
+  - `lim` is the maximum height of the search tree allowed - for adjusting game difficulty
   ```cpp
-  int max_value(int depth, State s, int alpha, int beta){ // 当前节点的alpha beta
+  int max_value(int depth, State s, int alpha, int beta){ // alpha, beta bound for the current node
       if (terminate(s) || depth >= lim) return evaluate(s);
       v = -INF;
       vector<State> succ = make_succesors(s, player^1);
@@ -67,3 +53,4 @@
       return v;
   }
   ```
+  
